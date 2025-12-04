@@ -1,60 +1,49 @@
 package co.com.udec.IngSoftTCC.domain.model;
 
+import java.util.Objects;
+
 public class Paciente {
+
     private Long id;
-    private String nombreCompleto;
-    private String tipoDocumento;
-    private String numeroDocumento;
+    private String nombre;
+    private String identificacion;
     private String telefono;
     private String correo;
 
-    public Long getId() {
-        return id;
-    }
+    public Paciente(Long id, String nombre, String identificacion, String telefono, String correo) {
+        validarObligatorios(nombre, identificacion, telefono, correo);
 
-    public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
-
-    public String getTipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public void setTipoDocumento(String tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
-    }
-
-    public String getNumeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
+        this.nombre = nombre;
+        this.identificacion = identificacion;
         this.telefono = telefono;
+        this.correo = correo;
     }
 
-    public String getCorreo() {
-        return correo;
+    private void validarObligatorios(String nombre, String identificacion, String telefono, String correo) {
+        if (nombre == null || nombre.isBlank())
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+
+        if (identificacion == null || identificacion.isBlank())
+            throw new IllegalArgumentException("La identificación no puede estar vacía");
+
+        if (telefono == null || telefono.isBlank())
+            throw new IllegalArgumentException("El teléfono no puede estar vacío");
+
+        if (correo == null || correo.isBlank())
+            throw new IllegalArgumentException("El correo no puede estar vacío");
     }
 
-    public void setCorreo(String correo) {
+    public Long getId() { return id; }
+    public String getNombre() { return nombre; }
+    public String getIdentificacion() { return identificacion; }
+    public String getTelefono() { return telefono; }
+    public String getCorreo() { return correo; }
+
+    public void actualizarDatos(String nombre, String telefono, String correo) {
+        validarObligatorios(nombre, this.identificacion, telefono, correo);
+        this.nombre = nombre;
+        this.telefono = telefono;
         this.correo = correo;
     }
 }
-
-
