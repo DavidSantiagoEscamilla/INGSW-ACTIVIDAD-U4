@@ -1,7 +1,5 @@
 package co.com.udec.IngSoftTCC.domain.model;
 
-import java.util.Objects;
-
 public class Paciente {
 
     private Long id;

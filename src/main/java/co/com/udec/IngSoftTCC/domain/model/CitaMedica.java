@@ -1,7 +1,6 @@
 package co.com.udec.IngSoftTCC.domain.model;
 
-import co.com.udec.IngSoftTCC.domain.model.Paciente;
-import co.com.udec.IngSoftTCC.domain.model.Medico;
+import co.com.udec.IngSoftTCC.domain.exception.CitaNoEncontradaException;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +17,9 @@ public class CitaMedica {
     private LocalDateTime fechaCancelacion;
 
     public CitaMedica(Long id, Paciente paciente, Medico medico, LocalDateTime fechaHora) {
+
+        if(id == null)
+            throw new CitaNoEncontradaException(null);
 
         if (paciente == null)
             throw new IllegalArgumentException("La cita requiere un paciente existente");
