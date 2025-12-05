@@ -38,6 +38,12 @@ public class Paciente {
     public String getTelefono() { return telefono; }
     public String getCorreo() { return correo; }
 
+    public void setId(Long id) { this.id = id; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setIdentificacion(String identificacion) { this.identificacion = identificacion; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public void setCorreo(String correo) { this.correo = correo; }
+
     public void actualizarDatos(String nombre, String telefono, String correo) {
         validarObligatorios(nombre, this.identificacion, telefono, correo);
         this.nombre = nombre;

@@ -45,6 +45,15 @@ public class CitaMedica {
     public String getMotivoCancelacion() { return motivoCancelacion; }
     public LocalDateTime getFechaCancelacion() { return fechaCancelacion; }
 
+    public void setId(Long id) { this.id = id; }
+    public void setPaciente(Paciente paciente) { this.paciente = paciente; }
+    public void setMedico(Medico medico) { this.medico = medico; }
+    public void setFechaHora(LocalDateTime fechaHora) { this.fechaHora = fechaHora; }
+    public void setEstado(Estado estado) { this.estado = estado; }
+    public void setMotivoCancelacion(String motivoCancelacion) { this.motivoCancelacion = motivoCancelacion; }
+    public void setFechaCancelacion(LocalDateTime fechaCancelacion) { this.fechaCancelacion = fechaCancelacion; }
+
+
     public void actualizar(LocalDateTime nuevaFechaHora, Medico nuevoMedico) {
         if (estado != Estado.PROGRAMADA)
             throw new IllegalStateException("No se puede actualizar una cita atendida o cancelada");

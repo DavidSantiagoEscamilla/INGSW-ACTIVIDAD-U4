@@ -25,6 +25,12 @@ public class Medico {
     public String getEspecialidad() { return especialidad; }
     public boolean isActivo() { return activo; }
 
+    public void setId(Long id) { this.id = id; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setEspecialidad(String especialidad) { this.especialidad = especialidad; }
+    public void setActivo(boolean activo) { this.activo = activo; }
+
+
     public void actualizarDatos(String nombre, String especialidad) {
         if (nombre == null || nombre.isBlank())
             throw new IllegalArgumentException("El nombre no puede estar vacío");
