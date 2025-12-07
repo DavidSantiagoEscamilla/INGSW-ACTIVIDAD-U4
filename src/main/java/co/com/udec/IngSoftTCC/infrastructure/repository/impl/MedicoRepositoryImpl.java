@@ -5,6 +5,7 @@ import co.com.udec.IngSoftTCC.domain.repository.MedicoDomainRepository;
 import co.com.udec.IngSoftTCC.infrastructure.entity.MedicoEntity;
 import co.com.udec.IngSoftTCC.infrastructure.mapper.MedicoMapper;
 import co.com.udec.IngSoftTCC.infrastructure.repository.MedicoRepository;
+import org.springframework.context.annotation.Lazy; // <--- IMPORTANTE
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,7 +18,8 @@ public class MedicoRepositoryImpl implements MedicoDomainRepository {
     private final MedicoRepository repository;
     private final MedicoMapper mapper;
 
-    public MedicoRepositoryImpl(MedicoRepository repository, MedicoMapper mapper) {
+    // AQUI EL FIX: @Lazy agregado
+    public MedicoRepositoryImpl(@Lazy MedicoRepository repository, MedicoMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }

@@ -1,7 +1,9 @@
 package co.com.udec.IngSoftTCC.infrastructure.controller;
 
+import co.com.udec.IngSoftTCC.application.dto.PacienteDTO;
+import co.com.udec.IngSoftTCC.application.service.PacienteService;
 import co.com.udec.IngSoftTCC.domain.model.Paciente;
-import co.com.udec.IngSoftTCC.domain.repository.PacienteDomainRepository;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,45 +13,47 @@ import java.util.List;
 @RequestMapping("/api/pacientes")
 public class PacienteController {
 
-    private final PacienteDomainRepository repository;
+    private final PacienteService service;
 
-    public PacienteController(PacienteDomainRepository repository) {
-        this.repository = repository;
+    public PacienteController(PacienteService service) {
+        this.service = service;
     }
 
     @GetMapping
     public List<Paciente> listarTodos() {
-        return repository.listarTodos();
+        return service.listarTodos();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Paciente> buscarPorId(@PathVariable Long id) {
-        return repository.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return ResponseEntity.ok(service.buscarPorId(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
-    public Paciente crear(@RequestBody Paciente paciente) {
-        return repository.guardar(paciente);
+    public ResponseEntity<Paciente> crear(@RequestBody Paciente paciente) {
+        return ResponseEntity.ok(service.crear(paciente));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Paciente> actualizar(@PathVariable Long id, @RequestBody Paciente paciente) {
-        return repository.buscarPorId(id)
-                .map(existing -> {
-                    paciente.setId(id); // asegurar que use el mismo id
-                    return ResponseEntity.ok(repository.guardar(paciente));
-                })
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return ResponseEntity.ok(service.actualizar(id, paciente));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        if (repository.buscarPorId(id).isPresent()) {
-            repository.eliminar(id);
+        try {
+            service.eliminar(id);
             return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 }

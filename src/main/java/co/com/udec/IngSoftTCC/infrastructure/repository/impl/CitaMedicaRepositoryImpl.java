@@ -5,6 +5,7 @@ import co.com.udec.IngSoftTCC.domain.repository.CitaMedicaDomainRepository;
 import co.com.udec.IngSoftTCC.infrastructure.entity.CitaMedicaEntity;
 import co.com.udec.IngSoftTCC.infrastructure.mapper.CitaMedicaMapper;
 import co.com.udec.IngSoftTCC.infrastructure.repository.CitaMedicaRepository;
+import org.springframework.context.annotation.Lazy; // <--- ESTO ES VITAL
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,7 +18,8 @@ public class CitaMedicaRepositoryImpl implements CitaMedicaDomainRepository {
     private final CitaMedicaRepository repository;
     private final CitaMedicaMapper mapper;
 
-    public CitaMedicaRepositoryImpl(CitaMedicaRepository repository, CitaMedicaMapper mapper) {
+    // AQUI ESTÁ EL FIX: @Lazy rompe el ciclo infinito
+    public CitaMedicaRepositoryImpl(@Lazy CitaMedicaRepository repository, CitaMedicaMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
